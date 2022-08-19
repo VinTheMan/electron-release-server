@@ -1,0 +1,33 @@
+version: '2'
+services:
+  web:
+    image: electron-release-server_web:latest
+    build: .
+    environment:
+      APP_USERNAME: it
+      APP_PASSWORD: it#1234
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: releaseserver
+      DB_NAME: releaseserver
+      DB_PASSWORD: secret
+      TOKEN_SECRET: change_me_in_production
+      APP_URL: '172.22.252.160:5000'
+      ASSETS_PATH: '/usr/src/electron-release-server/releases'
+    depends_on:
+      - db
+    ports:
+      - '5000:80'
+    entrypoint: ./scripts/wait.sh db:5432 -- npm start
+    volumes:
+      - ./releases:/usr/src/electron-release-server/releases
+      - ./database.json:/usr/src/electron-release-server/database.json
+  db:
+    image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: releaseserver
+    # ports:
+    #   - '5432:5432'
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
