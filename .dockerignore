@@ -1,5 +1,5 @@
 config/local.js
-database.json
+# database.json
 node_modules
 assets/bower_components
 .tmp

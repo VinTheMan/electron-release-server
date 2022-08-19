@@ -3,8 +3,8 @@ services:
   web:
     build: .
     environment:
-      APP_USERNAME: username
-      APP_PASSWORD: password
+      APP_USERNAME: it
+      APP_PASSWORD: it#1234
       DB_HOST: db
       DB_PORT: 5432
       DB_USERNAME: releaseserver
@@ -20,13 +20,13 @@ services:
     entrypoint: ./scripts/wait.sh db:5432 -- npm start
     volumes:
       - ./releases:/usr/src/electron-release-server/releases
+      - ./database.json:/usr/src/electron-release-server/database.json
   db:
     image: postgres:11
     environment:
       POSTGRES_PASSWORD: secret
       POSTGRES_USER: releaseserver
+    ports:
+      - '5432:5432'
     volumes:
-      - postgres:/var/lib/postgresql/data
-
-volumes:
-  postgres:
+      - ./postgres:/var/lib/postgresql/data

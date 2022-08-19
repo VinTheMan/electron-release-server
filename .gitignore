@@ -40,8 +40,8 @@
 ################################################
 
 config/local.js
-database.json
-
+# database.json
+/postgres
 
 
 

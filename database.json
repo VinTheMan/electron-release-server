@@ -1,0 +1,19 @@
+{
+  "defaultEnv": "docker",
+
+  "local": {
+    "driver": "pg",
+    "host": "DATABASE_HOST",
+    "user": "DATABASE_USERNAME",
+    "password": "DATABASE_PASSWORD",
+    "database": "MAIN_DATABASE_NAME"
+  },
+
+  "docker": {
+    "driver": "pg",
+    "host": "db",
+    "user": "releaseserver",
+    "password": "secret",
+    "database": "releaseserver"
+  }
+}
